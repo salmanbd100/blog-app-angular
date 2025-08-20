@@ -1,0 +1,4 @@
+{
+  "extends": ["plugin:@angular-eslint/recommended", "plugin:prettier/recommended"],
+  "root": true
+}
