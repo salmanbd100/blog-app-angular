@@ -96,4 +96,4 @@ npm run serve:ssr:blog-app-angular
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
 
-This README file provides a comprehensive overview of the project setup, development, and deployment processes. Adjust the instructions as necessary to fit your specific project requirements.
+This README file provides a comprehensive overview of the project setup, development, and deployment processes.
