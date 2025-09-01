@@ -1,65 +1,73 @@
-/* Container */
-form {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
+#registerForm {
+  max-width: 550px;
+  margin:  auto;
+  padding: 3rem;
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-}
+  gap: 1.2rem; /* same gap between title, fields, and button */
 
-/* Labels & Inputs */
-label {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
+  /* Title styling */
+  .form-title {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0; /* remove extra margin so gap handles spacing */
+    color: #333;
+  }
 
-input {
-  width: 100%;
-  padding: 0.6rem 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 0.95rem;
-  transition: border 0.2s ease;
-}
+  /* Each field wrapper */
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem; /* consistent gap between label, input, and error */
+  }
 
-input:focus {
-  border-color: #1976d2;   /* Angular Material blue */
-  outline: none;
-}
+  label {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
 
-/* Error messages */
-small {
-  color: #d32f2f;   /* red */
-  font-size: 0.8rem;
-  margin-top: 0.2rem;
-  display: block;
-}
+  input {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    transition: border 0.2s ease;
 
-/* Submit button */
-button {
-  padding: 0.75rem;
-  font-size: 1rem;
-  font-weight: 600;
-  background-color: #1976d2;  /* Angular Material primary */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
+    &:focus {
+      border-color: #1976d2;
+      outline: none;
+    }
+  }
 
-button:hover:enabled {
-  background-color: #125a9c;
-}
+  small {
+    color: #d32f2f;
+    font-size: 0.8rem;
+  }
 
-button:disabled {
-  background-color: #90caf9;
-  cursor: not-allowed;
+  #registerBtn {
+    padding: 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover:enabled {
+      background-color: #125a9c;
+    }
+
+    &:disabled {
+      background-color: #90caf9;
+      cursor: not-allowed;
+    }
+  }
 }

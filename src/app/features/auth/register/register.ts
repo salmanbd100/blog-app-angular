@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { 
   ReactiveFormsModule, 
@@ -8,60 +8,63 @@ import {
   AbstractControl, 
   ValidationErrors 
 } from '@angular/forms';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatSnackBarModule],
   templateUrl: './register.html',
   styleUrls: ['./register.scss']
 })
 export class Register {
+  private snackBar = inject(MatSnackBar);
 
-  // Define the form
+  // ✅ Define form
   registerForm = new FormGroup({
     fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z]).+$/) // must contain upper & lower
+    ]),
     confirmPassword: new FormControl('', [Validators.required])
   }, { validators: Register.passwordMatchValidator }); 
 
-  // Cross-field validator: compares password & confirmPassword
+  // ✅ Cross-field validator
   static passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const form = control as FormGroup;
     const password = form.get('password')?.value;
     const confirm = form.get('confirmPassword')?.value;
-
     return password === confirm ? null : { passwordMismatch: true };
   }
 
-  // Form submission
+  // ✅ Form submission
   onSubmit() {
-  if (this.registerForm.valid) {
-    const formData = this.registerForm.value;
+    if (this.registerForm.valid) {
+      const formData = this.registerForm.value;
 
-    const confirmMsg = `
-      Please confirm your details:
-      -----------------------------
-      Full Name: ${formData.fullName}
-      Email: ${formData.email}
-      Password: ${formData.password}
-      Confirm Password: ${formData.confirmPassword}
-    `;
+      // Here you can directly save or send to backend/localStorage
+      console.log("✅ Registration data:", formData);
 
-    const confirmed = confirm(confirmMsg);
+      // Show success snackbar
+      this.snackBar.open('Registration successful 🎉', 'Close', {
+        duration: 3000,
+        panelClass: ['success-snackbar']
+      });
 
-    if (confirmed) {
-      console.log("✅ User confirmed:", formData);
-      // later: save to localStorage or AuthService
+      // Example: save to localStorage (later phase)
+      // localStorage.setItem('blogapp/users', JSON.stringify(formData));
+
     } else {
-      console.log("❌ User cancelled");
+      this.registerForm.markAllAsTouched();
+
+      // Show error snackbar
+      this.snackBar.open('Please fix the errors in the form ❌', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar']
+      });
     }
-
-  } else {
-    console.log("Form invalid!");
-    this.registerForm.markAllAsTouched();
   }
-}
-
 }
