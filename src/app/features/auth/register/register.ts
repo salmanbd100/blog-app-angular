@@ -9,11 +9,12 @@ import {
   ValidationErrors 
 } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatSnackBarModule],
+  imports: [CommonModule, ReactiveFormsModule, MatSnackBarModule, RouterModule],
   templateUrl: './register.html',
   styleUrls: ['./register.scss']
 })
@@ -40,31 +41,37 @@ export class Register {
     return password === confirm ? null : { passwordMismatch: true };
   }
 
-  // ✅ Form submission
-  onSubmit() {
-    if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
+ onSubmit() {
+  if (this.registerForm.valid) {
+    const formData = this.registerForm.value;
 
-      // Here you can directly save or send to backend/localStorage
-      console.log("✅ Registration data:", formData);
+    // Step 1: Get existing users or start with empty []
+    const users = JSON.parse(localStorage.getItem('blogapp/users') || '[]');
 
-      // Show success snackbar
-      this.snackBar.open('Registration successful 🎉', 'Close', {
-        duration: 3000,
-        panelClass: ['success-snackbar']
-      });
+    // Step 2: Add new user
+    users.push(formData);
 
-      // Example: save to localStorage (later phase)
-      // localStorage.setItem('blogapp/users', JSON.stringify(formData));
+    // Step 3: Save back to localStorage
+    localStorage.setItem('blogapp/users', JSON.stringify(users));
 
-    } else {
-      this.registerForm.markAllAsTouched();
+    console.log("✅ User saved to localStorage:", formData);
 
-      // Show error snackbar
-      this.snackBar.open('Please fix the errors in the form ❌', 'Close', {
-        duration: 3000,
-        panelClass: ['error-snackbar']
-      });
-    }
+    this.snackBar.open('Registration successful 🎉', 'Close', {
+      duration: 3000,
+      panelClass: ['success-snackbar']
+    });
+
+    // (Optional) Reset form after success
+    this.registerForm.reset();
+
+  } else {
+    this.registerForm.markAllAsTouched();
+
+    this.snackBar.open('Please fix the errors in the form ❌', 'Close', {
+      duration: 3000,
+      panelClass: ['error-snackbar']
+    });
   }
+}
+
 }

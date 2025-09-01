@@ -71,3 +71,21 @@
     }
   }
 }
+
+.switch-auth {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+
+  a {
+    color: #1976d2;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #125a9c;
+      text-decoration: underline;
+    }
+  }
+}
