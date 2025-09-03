@@ -9,12 +9,11 @@ import {
   ValidationErrors 
 } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatSnackBarModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, MatSnackBarModule],
   templateUrl: './register.html',
   styleUrls: ['./register.scss']
 })
@@ -41,37 +40,31 @@ export class Register {
     return password === confirm ? null : { passwordMismatch: true };
   }
 
- onSubmit() {
-  if (this.registerForm.valid) {
-    const formData = this.registerForm.value;
+  // ✅ Form submission
+  onSubmit() {
+    if (this.registerForm.valid) {
+      const formData = this.registerForm.value;
 
-    // Step 1: Get existing users or start with empty []
-    const users = JSON.parse(localStorage.getItem('blogapp/users') || '[]');
+      // Here you can directly save or send to backend/localStorage
+      console.log("✅ Registration data:", formData);
 
-    // Step 2: Add new user
-    users.push(formData);
+      // Show success snackbar
+      this.snackBar.open('Registration successful 🎉', 'Close', {
+        duration: 3000,
+        panelClass: ['success-snackbar']
+      });
 
-    // Step 3: Save back to localStorage
-    localStorage.setItem('blogapp/users', JSON.stringify(users));
+      // Example: save to localStorage (later phase)
+      // localStorage.setItem('blogapp/users', JSON.stringify(formData));
 
-    console.log("✅ User saved to localStorage:", formData);
+    } else {
+      this.registerForm.markAllAsTouched();
 
-    this.snackBar.open('Registration successful 🎉', 'Close', {
-      duration: 3000,
-      panelClass: ['success-snackbar']
-    });
-
-    // (Optional) Reset form after success
-    this.registerForm.reset();
-
-  } else {
-    this.registerForm.markAllAsTouched();
-
-    this.snackBar.open('Please fix the errors in the form ❌', 'Close', {
-      duration: 3000,
-      panelClass: ['error-snackbar']
-    });
+      // Show error snackbar
+      this.snackBar.open('Please fix the errors in the form ❌', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar']
+      });
+    }
   }
-}
-
 }

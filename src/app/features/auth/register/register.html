@@ -1,81 +1,76 @@
-<form id="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
   <!-- Form Title -->
   <h2 class="form-title">Register</h2>
 
   <!-- Full Name -->
-  <div>
-    <label for="fullName">Full Name</label>
-    <input id="fullName" type="text" formControlName="fullName">
+  <div class="form-field">
+    <label for="fullName" class="form-label">Full Name</label>
+    <input id="fullName" type="text" formControlName="fullName" class="form-input">
 
     @if (registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid) {
-      <div>
+      <div class="form-error">
         @if (registerForm.get('fullName')?.hasError('required')) {
-          <small>Name is required.</small>
+          Name is required.
         } @else if (registerForm.get('fullName')?.hasError('minlength')) {
-          <small>Name must be at least 3 characters.</small>
+          Name must be at least 3 characters.
         }
       </div>
     }
   </div>
 
   <!-- Email -->
-  <div>
-    <label for="email">Email</label>
-    <input id="email" type="email" formControlName="email">
+  <div class="form-field">
+    <label for="email" class="form-label">Email</label>
+    <input id="email" type="email" formControlName="email" class="form-input">
 
     @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
-      <div>
+      <div class="form-error">
         @if (registerForm.get('email')?.hasError('required')) {
-          <small>Email is required.</small>
+          Email is required.
         } @else if (registerForm.get('email')?.hasError('email')) {
-          <small>Invalid email format.</small>
+          Invalid email format.
         }
       </div>
     }
   </div>
 
   <!-- Password -->
-  <div>
-    <label for="password">Password</label>
-    <input id="password" type="password" formControlName="password">
+  <div class="form-field">
+    <label for="password" class="form-label">Password</label>
+    <input id="password" type="password" formControlName="password" class="form-input">
 
     @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
-      <div>
+      <div class="form-error">
         @if (registerForm.get('password')?.hasError('required')) {
-          <small>Password is required.</small>
+          Password is required.
         } @else if (registerForm.get('password')?.hasError('minlength')) {
-          <small>Password must be at least 8 characters.</small>
+          Password must be at least 8 characters.
         }
       </div>
     }
   </div>
 
   <!-- Confirm Password -->
-  <div>
-    <label for="confirmPassword">Confirm Password</label>
-    <input id="confirmPassword" type="password" formControlName="confirmPassword">
+  <div class="form-field">
+    <label for="confirmPassword" class="form-label">Confirm Password</label>
+    <input id="confirmPassword" type="password" formControlName="confirmPassword" class="form-input">
 
     @if (registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.hasError('required')) {
-      <div>
-        <small>Please confirm your password.</small>
+      <div class="form-error">
+       Please confirm your password.
       </div>
     }
 
     @if (registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched) {
-      <div>
-        <small>Passwords do not match.</small>
+      <div class="form-error">
+        Passwords do not match.
       </div>
     }
   </div>
 
   <!-- Submit -->
-  <button id="registerBtn" type="submit" [disabled]="registerForm.invalid">
+  <button class="register-btn" type="submit" [disabled]="registerForm.invalid">
     Register
   </button>
-  <p class="switch-auth">
-  Already have an account?
-  <a routerLink="/auth/login">Login here</a>
-</p>
-
 </form>
