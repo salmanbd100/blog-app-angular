@@ -1,4 +1,4 @@
-#loginForm {
+.login-form {
   max-width: 450px;
   margin: 3rem auto;
   padding: 2rem;
@@ -10,7 +10,6 @@
   flex-direction: column;
   gap: 1.2rem;
 
-  /* Title */
   .form-title {
     text-align: center;
     font-size: 1.6rem;
@@ -19,16 +18,18 @@
     color: #333;
   }
 
-  /* Labels */
-  label {
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 0.3rem;
-    display: block;
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
 
-  /* Inputs */
-  input {
+  .form-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .form-input {
     width: 100%;
     padding: 0.7rem 0.9rem;
     border: 1px solid #ccc;
@@ -37,25 +38,21 @@
     transition: border 0.2s ease;
 
     &:focus {
-      border-color: #1976d2; /* Angular Material blue */
+      border-color: #1976d2;
       outline: none;
     }
   }
 
-  /* Error messages */
-  small {
-    color: #d32f2f; /* red */
+  .form-error small {
+    color: #d32f2f;
     font-size: 0.8rem;
-    margin-top: 0.2rem;
-    display: block;
   }
 
-  /* Submit Button */
-  button {
+  .login-btn {
     padding: 0.85rem;
     font-size: 1rem;
     font-weight: 600;
-    background-color: #1976d2; /* Material primary */
+    background-color: #1976d2;
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -71,21 +68,22 @@
       cursor: not-allowed;
     }
   }
-}
-.switch-auth {
-  text-align: center;
-  font-size: 0.9rem;
-  margin-top: 1rem;
 
-  a {
-    color: #1976d2;
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s;
+  .switch-auth {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 1rem;
 
-    &:hover {
-      color: #125a9c;
-      text-decoration: underline;
+    a {
+      color: #1976d2;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #125a9c;
+        text-decoration: underline;
+      }
     }
   }
 }

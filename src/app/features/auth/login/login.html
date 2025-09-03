@@ -1,26 +1,36 @@
-<form id="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <h2 class="form-title">Login</h2>
 
-  <div>
-    <label for="email">Email</label>
-    <input id="email" type="email" formControlName="email">
+  <!-- Email -->
+  <div class="form-field">
+    <label for="email" class="form-label">Email</label>
+    <input id="email" type="email" formControlName="email" class="form-input">
     @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
-      <small>Email is required and must be valid.</small>
+      <div class="form-error">
+        Email is required and must be valid.
+      </div>
     }
   </div>
 
-  <div>
-    <label for="password">Password</label>
-    <input id="password" type="password" formControlName="password">
+  <!-- Password -->
+  <div class="form-field">
+    <label for="password" class="form-label">Password</label>
+    <input id="password" type="password" formControlName="password" class="form-input">
     @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
-      <small>Password is required.</small>
+      <div class="form-error">
+        Password is required.
+      </div>
     }
   </div>
 
-  <button type="submit" [disabled]="loginForm.invalid">Login</button>
-  <p class="switch-auth">
-  Don’t have an account?
-  <a routerLink="/auth/register">Register here</a>
-</p>
+  <!-- Submit -->
+  <button class="login-btn" type="submit" [disabled]="loginForm.invalid">
+    Login
+  </button>
 
+  <!-- Switch Auth -->
+  <p class="switch-auth">
+    Don’t have an account?
+    <a routerLink="/auth/register">Register here</a>
+  </p>
 </form>
