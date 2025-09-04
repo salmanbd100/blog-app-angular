@@ -41,30 +41,40 @@ export class Register {
   }
 
   // ✅ Form submission
-  onSubmit() {
-    if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
+ onSubmit() {
+  if (this.registerForm.valid) {
+    const formData = this.registerForm.value;
 
-      // Here you can directly save or send to backend/localStorage
-      console.log("✅ Registration data:", formData);
+    // 1️⃣ Load existing users array (or create empty one)
+    const users = JSON.parse(localStorage.getItem('blogapp/users') || '[]');
 
-      // Show success snackbar
-      this.snackBar.open('Registration successful 🎉', 'Close', {
-        duration: 3000,
-        panelClass: ['success-snackbar']
-      });
+    // 2️⃣ Remove confirmPassword before saving
+    const newUser = {
+      fullName: formData.fullName,
+      email: formData.email,
+      password: formData.password
+    };
 
-      // Example: save to localStorage (later phase)
-      // localStorage.setItem('blogapp/users', JSON.stringify(formData));
+    // 3️⃣ Add new user to array
+    users.push(newUser);
 
-    } else {
-      this.registerForm.markAllAsTouched();
+    // 4️⃣ Save back to localStorage
+    localStorage.setItem('blogapp/users', JSON.stringify(users));
 
-      // Show error snackbar
-      this.snackBar.open('Please fix the errors in the form ❌', 'Close', {
-        duration: 3000,
-        panelClass: ['error-snackbar']
-      });
-    }
+    console.log("✅ User saved:", newUser);
+
+    this.snackBar.open('Registration successful 🎉', 'Close', {
+      duration: 3000,
+      panelClass: ['success-snackbar']
+    });
+
+    this.registerForm.reset();
+  } else {
+    this.registerForm.markAllAsTouched();
+    this.snackBar.open('Please fix the errors in the form ❌', 'Close', {
+      duration: 3000,
+      panelClass: ['error-snackbar']
+    });
   }
+}
 }
