@@ -1,11 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { BlogService } from '../../../core/services/blog';
+import { Blog } from '../../../models/blog';
 
 @Component({
   selector: 'app-blog-list',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './blog-list.html',
-  styleUrl: './blog-list.scss'
+  styleUrls: ['./blog-list.scss']
 })
-export class BlogList {
+export class BlogList implements OnInit {
+  private blogService = inject(BlogService);
+  blogs: Blog[] = [];
 
+  ngOnInit() {
+    this.blogs = this.blogService.getAllBlogs();
+  }
 }

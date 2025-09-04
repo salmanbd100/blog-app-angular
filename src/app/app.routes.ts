@@ -9,6 +9,12 @@ export const routes: Routes = [
       import('./features/auth/auth-module').then(m => m.AuthModule),
   },
 
-  { path: '', redirectTo: 'auth/register', pathMatch: 'full' }, // temp default
-  { path: '**', redirectTo: 'auth/register' },
+  {
+    path: 'blogs',
+    loadChildren: () =>
+      import('./features/blogs/blogs-routing-module').then(m => m.BlogsRoutingModule),
+  },
+
+  { path: '', redirectTo: 'blogs', pathMatch: 'full' },   // 👈 set blogs as default
+  { path: '**', redirectTo: 'blogs' },
 ];
