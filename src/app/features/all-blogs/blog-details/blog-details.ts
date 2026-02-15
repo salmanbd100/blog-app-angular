@@ -1,31 +1,38 @@
-// src/app/features/all-blogs/blog-details/blog-details.ts
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { CommonModule, AsyncPipe } from '@angular/common';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { BlogService } from '../../../core/services/blog';
-import { Blog } from '../../../models/blog';
+import { Navbar } from '../../../shared/navbar/navbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-blog-details',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    AsyncPipe,
+    Navbar,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
+  ],
   templateUrl: './blog-details.html',
-  styleUrls: ['./blog-details.scss']
+  styleUrls: ['./blog-details.scss'],
 })
-export class BlogDetails implements OnInit {
-  private route = inject(ActivatedRoute);
+export class BlogDetails {
   private blogService = inject(BlogService);
+  private route = inject(ActivatedRoute);
 
-  blog?: Blog;
+  //  dynamically load blog by id from route
+  blog$ = this.blogService.getBlogById(Number(this.route.snapshot.paramMap.get('id')));
 
-  ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id')); // get id from URL
-    this.blogService.getBlogById(id).subscribe(blog => {
-      this.blog = blog;
-
-      if (!this.blog) {
-        console.warn(`❌ Blog with id ${id} not found`);
-      }
-    });
+  logout() {
+    localStorage.removeItem('blogapp/auth'); // clear auth
+    window.location.href = '/login'; // redirect to login
   }
 }

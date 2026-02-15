@@ -1,1 +1,29 @@
-<p>profile works!</p>
+<div class="profile">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="profile-title">
+        <mat-icon>person</mat-icon>
+        My Profile
+      </mat-card-title>
+    </mat-card-header>
+
+    @if (user) {
+      <mat-card-content>
+        <p class="profile-item"><strong>Name:</strong> {{ user.fullName }}</p>
+        <p class="profile-item"><strong>Email:</strong> {{ user.email }}</p>
+        <p class="profile-item"><strong>Joined:</strong> {{ joinDate }}</p>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-stroked-button color="primary" routerLink="/blogs">
+          <mat-icon>arrow_back</mat-icon>
+          Back to Blogs
+        </button>
+      </mat-card-actions>
+    } @else {
+      <mat-card-content>
+        <p class="no-user">No user logged in.</p>
+      </mat-card-content>
+    }
+  </mat-card>
+</div>

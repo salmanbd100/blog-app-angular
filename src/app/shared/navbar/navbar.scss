@@ -1,0 +1,21 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+}
